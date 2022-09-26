@@ -1,0 +1,1 @@
+- Start a clean Next.js project with TypeScript, ESLint and Prettier https://paulintrognon.fr/blog/typescript-prettier-eslint-next-js

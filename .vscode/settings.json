@@ -1,0 +1,9 @@
+{
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "eslint.validate": ["javascript", "typescript", "javascriptreact", "html", "typescriptreact", "solidity"],
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode", // Tell VSCode to use Prettier as default file formatter
+    "solidity.compileUsingRemoteVersion": "v0.8.13+commit.abaa5c0e"
+}
