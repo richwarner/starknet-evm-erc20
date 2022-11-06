@@ -167,7 +167,7 @@ export default function Interact() {
           <button
             onClick={async () => {
               // BalanceOf
-              const value = parseInt(document.querySelector('#transferAddress').value)%100;
+              const value = parseInt(document.querySelector('#transferAddress').value) % 100
               const calldata = '70a08231' + document.querySelector('#transferAddress').value.padStart(64, '0')
               // parseInt(document.querySelector('#transferAmount').value).toString(16).padStart(64, '0')
               console.log('calldata:', calldata)
@@ -182,14 +182,14 @@ export default function Interact() {
         {/* Mint */}
         <div className="flex justify-end mt-0">
           <input
-            id="transferAddress"
+            id="mintAddress"
             type="text"
             placeholder="to"
             // value="d770134156f9ab742fdb4561a684187f733a9586"
             className="border-3 border-gray-400 rounded-lg h-14 mb-2 mr-2 p-4"
           />
           <input
-            id="transferAmount"
+            id="mintAmount"
             type="text"
             placeholder="amount"
             // value="10"
@@ -202,9 +202,10 @@ export default function Interact() {
               // change to mint
               const calldata =
                 '40c10f19' +
-                document.querySelector('#transferAddress').value.padStart(64, '0') +
-                parseInt(document.querySelector('#transferAmount').value).toString(16).padStart(64, '0')
+                (parseInt(document.querySelector('#mintAddress').value) % 1048576).toString(16).padStart(64, '0') +
+                parseInt(document.querySelector('#mintAmount').value).toString(16).padStart(64, '0')
               console.log('calldata:', calldata)
+              alert(calldata)
               await call('local', 'execute_at_address', erc20_evm_address, hex2bytes(calldata))
             }}
             className={utilStyles.buttonPress}
