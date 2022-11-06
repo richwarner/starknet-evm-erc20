@@ -36,14 +36,16 @@ export default function Home({
   const setAccountRegistry = async () => {
     const wallet = getStarknet()
     if (wallet.isConnected) {
-      const contractAddress = '0x03789d7f86abfc8c690f240a179dcd802b3c7c1c090007ffe5d8a39e8fefae25'
+      const contractAddress = '0x0700f1b34d2114efc1afae4dfe4e63fb3c5058617c6463828fff8d5ca68a656d'
       const kakarotContract = new Contract(kakarotAbi.abi as Abi, contractAddress, wallet.account)
 
       // kakarotContract?.functions['execute'](hex2bytes('60016004600760086009'), hex2bytes('60016004600760086009')).then(
       //   (response) => console.log(response)
       // )
 
-      kakarotContract?.functions['set_account_registry'](60016).then((response) => console.log(response))
+      kakarotContract?.functions['set_account_registry'](
+        2076123185491685198608342278842677924245480201842034128189669178701877482906
+      ).then((response) => console.log(response))
 
       // kakarotContract?.functions['execute_at_address'](0, hex2bytes('60016004600760086009')).then((response) =>
       //   console.log(response)
