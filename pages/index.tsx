@@ -9,6 +9,7 @@ import { GetStaticProps } from 'next'
 import { connect, disconnect, getStarknet } from 'get-starknet'
 import kakarotAbi from '../abis/kakarot.json'
 import { Abi, Contract, Signature } from 'starknet'
+import Interact from '../components/interact'
 
 export default function Home({
   allPostsData
@@ -30,13 +31,12 @@ export default function Home({
   //   }
   // }
 
-  const hex2bytes = (hexString: string) =>
-    hexString.match(/[0-9a-f]{2}/gi)?.map((byte) => parseInt(byte, 16).toString()) || []
+  const hex2bytes = (hexString: string) => hexString.match(/[0-9a-f]{2}/gi)?.map((byte) => parseInt(byte, 16).toString()) || []
 
   const setAccountRegistry = async () => {
     const wallet = getStarknet()
     if (wallet.isConnected) {
-      const contractAddress = '0x007375191ed2f818f66248cba61fc705773c574325817677ba7c55a1e6ca7980'
+      const contractAddress = '0x03789d7f86abfc8c690f240a179dcd802b3c7c1c090007ffe5d8a39e8fefae25'
       const kakarotContract = new Contract(kakarotAbi.abi as Abi, contractAddress, wallet.account)
 
       // kakarotContract?.functions['execute'](hex2bytes('60016004600760086009'), hex2bytes('60016004600760086009')).then(
@@ -58,7 +58,9 @@ export default function Home({
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section className={utilStyles.headingMd}>
+      <Interact />
+
+      {/* <section className={utilStyles.headingMd}>
         <button
           className="border-2"
           onClick={async () => {
@@ -99,16 +101,16 @@ export default function Home({
             </li>
           ))}
         </ul>
-      </section>
+      </section> */}
     </Layout>
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const allPostsData = getSortedPostsData()
-  return {
-    props: {
-      allPostsData
-    }
-  }
-}
+// export const getStaticProps: GetStaticProps = async () => {
+//   const allPostsData = getSortedPostsData()
+//   return {
+//     props: {
+//       allPostsData
+//     }
+//   }
+// }

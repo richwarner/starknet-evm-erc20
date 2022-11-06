@@ -5,23 +5,14 @@ import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 
 const name = '[Your Name]'
-export const siteTitle = 'Next.js Sample Website'
+export const siteTitle = 'Kakarot Firstborn Token'
 
-export default function Layout({
-  children,
-  home
-}: {
-  children: React.ReactNode
-  home?: boolean
-}) {
+export default function Layout({ children, home }: { children: React.ReactNode; home?: boolean }) {
   return (
     <div className={styles.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="description"
-          content="Learn how to build a personal website using Next.js"
-        />
+        <meta name="description" content="Learn how to build a personal website using Next.js" />
         <meta
           property="og:image"
           content={`https://og-image.vercel.app/${encodeURI(
@@ -34,28 +25,14 @@ export default function Layout({
       <header className={styles.header}>
         {home ? (
           <>
-            <Image
-              priority
-              src="/images/profile.jpg"
-              className={utilStyles.borderCircle}
-              height={144}
-              width={144}
-              alt={name}
-            />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <Image priority src="/images/token.png" className={utilStyles.borderCircle} height={144} width={144} alt={name} />
+            <h1 className={utilStyles.heading2Xl}>Kakarot Firstborn Token</h1>
           </>
         ) : (
           <>
             <Link href="/">
               <a>
-                <Image
-                  priority
-                  src="/images/profile.jpg"
-                  className={utilStyles.borderCircle}
-                  height={108}
-                  width={108}
-                  alt={name}
-                />
+                <Image priority src="/images/token.png" className={utilStyles.borderCircle} height={108} width={108} alt={name} />
               </a>
             </Link>
             <h2 className={utilStyles.headingLg}>
