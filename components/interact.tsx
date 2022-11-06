@@ -142,7 +142,7 @@ export default function Interact() {
             }}
             className={utilStyles.buttonPress}
           >
-            Wallet: full_erc20_name
+            Wallet: name
           </button>
           <button
             onClick={async () => {
@@ -150,7 +150,7 @@ export default function Interact() {
             }}
             className={utilStyles.buttonPress}
           >
-            Local: full_erc20_name
+            Local: name
           </button>
         </div>
 
