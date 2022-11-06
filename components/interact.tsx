@@ -93,12 +93,12 @@ export default function Interact() {
 
   return (
     <div className="flex flex-col items-center text-center">
-      <div className="border-2 border-yellow-300 rounded-lg mb-6 p-6 text-center">{result}</div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="border-2 border-yellow-300 rounded-lg mb-6 p-6 text-center w-[700px]">{result}</div>
+      <div className="grid grid-cols-3 gap-4">
         {/* Connect Wallet */}
-        <div></div>
+        {/* <div></div>
         <div>
-          {/* <button
+         <button
             className={utilStyles.buttonPress}
             onClick={async () => {
               try {
@@ -114,8 +114,8 @@ export default function Interact() {
             }}
           >
             Connect Wallet
-          </button> */}
-        </div>
+          </button> 
+        </div> */}
 
         {/* Get Account Registry
         <div className="flex justify-end mt-2"></div>
@@ -144,38 +144,27 @@ export default function Interact() {
         </div> */}
 
         {/* BalanceOf */}
+        <div></div>
         <div className="flex justify-end mt-0">
-          <div className="text-start">
-            <input
-              id="transferAddress"
-              type="text"
-              placeholder="address"
-              // value="d770134156f9ab742fdb4561a684187f733a9586"
-              className="border-3 border-gray-400 rounded-lg h-14 mb-2 mr-2 p-4"
-            />
-          </div>
-          {/* <input
-            id="transferAmount"
+          <input
+            id="balanceOfAddress"
             type="text"
-            placeholder="amount"
-            value="10"
-            className="border-3 border-gray-400 rounded-lg h-14 p-4"
-          /> */}
+            placeholder="address"
+            className="border-3 border-gray-400 rounded-lg h-14 mb-2 mr-2 p-4"
+          />
         </div>
-
         <div className="flex gap-2 mt-0">
           <button
             onClick={async () => {
               // BalanceOf
-              const value = parseInt(document.querySelector('#transferAddress').value) % 100
-              const calldata = '70a08231' + document.querySelector('#transferAddress').value.padStart(64, '0')
+              const calldata = '70a08231' + document.querySelector('#balanceOfAddress').value.padStart(64, '0')
               // parseInt(document.querySelector('#transferAmount').value).toString(16).padStart(64, '0')
               console.log('calldata:', calldata)
               await call('local', 'execute_at_address', erc20_evm_address, hex2bytes(calldata))
             }}
             className={utilStyles.buttonPress}
           >
-            BalanceOf
+            Balance Of
           </button>
         </div>
 
@@ -188,6 +177,8 @@ export default function Interact() {
             // value="d770134156f9ab742fdb4561a684187f733a9586"
             className="border-3 border-gray-400 rounded-lg h-14 mb-2 mr-2 p-4"
           />
+        </div>
+        <div>
           <input
             id="mintAmount"
             type="text"
@@ -205,7 +196,6 @@ export default function Interact() {
                 (parseInt(document.querySelector('#mintAddress').value) % 1048576).toString(16).padStart(64, '0') +
                 parseInt(document.querySelector('#mintAmount').value).toString(16).padStart(64, '0')
               console.log('calldata:', calldata)
-              alert(calldata)
               await call('local', 'execute_at_address', erc20_evm_address, hex2bytes(calldata))
             }}
             className={utilStyles.buttonPress}
@@ -223,6 +213,8 @@ export default function Interact() {
             // value="d770134156f9ab742fdb4561a684187f733a9586"
             className="border-3 border-gray-400 rounded-lg h-14 mb-2 mr-2 p-4"
           />
+        </div>
+        <div>
           <input
             id="transferAmount"
             type="text"
@@ -256,6 +248,8 @@ export default function Interact() {
             // value="d770134156f9ab742fdb4561a684187f733a9586"
             className="border-3 border-gray-400 rounded-lg h-14 mb-2 mr-2 p-4"
           />
+        </div>
+        <div>
           <input
             id="approveAmount"
             type="text"
@@ -280,41 +274,58 @@ export default function Interact() {
           </button>
         </div>
 
-        {/* Allowence */}
+        {/* Allowance */}
         <div className="flex justify-end mt-2">
           <input
-            id="approveSpenderAddress"
+            id="allowanceOwner"
             type="text"
-            placeholder="spender address"
+            placeholder="owner"
             className="border-3 border-gray-400 rounded-lg h-14 mb-2 mr-2 p-4"
           />
-          <input id="approveAmount" type="text" placeholder="amount" className="border-3 border-gray-400 rounded-lg h-14 p-4" />
+        </div>
+        <div>
+          <input
+            id="allowanceSpender"
+            type="text"
+            placeholder="spender"
+            className="border-3 border-gray-400 rounded-lg h-14 p-4"
+          />
         </div>
         <div className="flex gap-2 mt-2">
           <button
             onClick={async () => {
               const calldata =
                 'dd62ed3e' +
-                document.querySelector('#approveSpenderAddress').value.padStart(64, '0') +
-                parseInt(document.querySelector('#approveAmount').value).toString(16).padStart(64, '0')
+                document.querySelector('#allowanceOwner').value.padStart(64, '0') +
+                parseInt(document.querySelector('#allowanceSpender').value).toString(16).padStart(64, '0')
               console.log('calldata:', calldata)
               await call('local', 'execute_at_address', erc20_evm_address, hex2bytes(calldata))
             }}
             className={utilStyles.buttonPress}
           >
-            Allowence
+            Allowance
           </button>
         </div>
 
         {/* TransferFrom */}
         <div className="flex justify-end mt-2">
           <input
-            id="approveSpenderAddress"
+            id="transferFromTo"
             type="text"
-            placeholder="spender address"
-            className="border-3 border-gray-400 rounded-lg h-14 mb-2 mr-2 p-4"
+            placeholder="to"
+            // value="d770134156f9ab742fdb4561a684187f733a9586"
+            className="border-3 border-gray-400 rounded-lg h-14 mb-2 mr-7 p-4 w-24"
           />
-          <input id="approveAmount" type="text" placeholder="amount" className="border-3 border-gray-400 rounded-lg h-14 p-4" />
+          <input
+            id="transferFromFrom"
+            type="text"
+            placeholder="from"
+            // value="d770134156f9ab742fdb4561a684187f733a9586"
+            className="border-3 border-gray-400 rounded-lg h-14 mb-2 mr-2 p-4 w-24"
+          />
+        </div>
+        <div>
+          <input id="transferAmount" type="text" placeholder="amount" className="border-3 border-gray-400 rounded-lg h-14 p-4" />
         </div>
         <div className="flex gap-2 mt-2">
           <button
@@ -322,57 +333,61 @@ export default function Interact() {
               //Transfer from
               const calldata =
                 '23b872dd' +
-                document.querySelector('#approveSpenderAddress').value.padStart(64, '0') +
-                parseInt(document.querySelector('#approveAmount').value).toString(16).padStart(64, '0')
+                document.querySelector('#transferFromAddress').value.padStart(64, '0') +
+                parseInt(document.querySelector('#transferAmount').value).toString(16).padStart(64, '0')
               console.log('calldata:', calldata)
               await call('local', 'execute_at_address', erc20_evm_address, hex2bytes(calldata))
             }}
             className={utilStyles.buttonPress}
           >
-            TransferFrom
+            Transfer From
           </button>
         </div>
 
-        <div className="flex flex-col items-center">
-          <h1>Setup</h1>
-          <div className="flex flex-col items-center justify-between">
-            <button
-              onClick={async () => {
-                const calldata =
-                  '' +
-                  document.querySelector('#transferAddress').value.padStart(64, '0') +
-                  parseInt(document.querySelector('#transferAmount').value).toString(16).padStart(64, '0')
-                console.log('calldata:', calldata)
-                await call(
-                  'local',
-                  'set_account_registry',
-                  '0x025596018938f27c730a138738b3c2039d28cc94881c81d3528a76f99e33a426',
-                  null
-                )
-              }}
-              className="mt-5 bg-green-700 p-3 rounded-md text-gray-100"
-            >
-              Local: set_account_registry
-            </button>
-
-            <button
-              onClick={async () => {
-                const result = await call('local', 'execute_at_address', 0, hex2bytes(code))
-              }}
-              className="mt-5 bg-green-700 p-3 rounded-md text-gray-100"
-            >
-              Local: Deploy
-            </button>
-
-            <button
-              onClick={async () => {
-                const result = await call('local', 'initiate', erc20_evm_address, erc20_starknet_address)
-              }}
-              className="mt-5 bg-green-700 p-3 rounded-md text-gray-100"
-            >
-              Local: Initiate
-            </button>
-          </div>
+        <div></div>
+        <div>
+          <span className="font-bold text-lg">Setup</span>
+        </div>
+        <div></div>
+        <div className="flex gap-4">
+          <button
+            onClick={async () => {
+              const calldata =
+                '' +
+                document.querySelector('#transferAddress').value.padStart(64, '0') +
+                parseInt(document.querySelector('#transferAmount').value).toString(16).padStart(64, '0')
+              console.log('calldata:', calldata)
+              await call(
+                'local',
+                'set_account_registry',
+                '0x025596018938f27c730a138738b3c2039d28cc94881c81d3528a76f99e33a426',
+                null
+              )
+            }}
+            className="bg-green-700 p-3 rounded-md text-gray-100 w-[220px]"
+          >
+            Local: set_account_registry
+          </button>
+        </div>
+        <div>
+          <button
+            onClick={async () => {
+              const result = await call('local', 'execute_at_address', 0, hex2bytes(code))
+            }}
+            className="bg-green-700 p-3 rounded-md text-gray-100 w-[220px]"
+          >
+            Local: Deploy
+          </button>
+        </div>
+        <div>
+          <button
+            onClick={async () => {
+              const result = await call('local', 'initiate', erc20_evm_address, erc20_starknet_address)
+            }}
+            className="bg-green-700 p-3 rounded-md text-gray-100 w-[220px]"
+          >
+            Local: Initiate
+          </button>
         </div>
       </div>
     </div>
