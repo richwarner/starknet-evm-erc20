@@ -113,8 +113,8 @@ export default function Interact() {
         </div>
 
         {/* Get Account Registry */}
-        <div className="flex justify-end"></div>
-        <div className="flex gap-2">
+        <div className="flex justify-end mt-2"></div>
+        <div className="flex gap-2 mt-2">
           <button
             onClick={async () => {
               const result = await call('wallet', 'get_account_registry', null, null)
@@ -134,11 +134,11 @@ export default function Interact() {
         </div>
 
         {/* Get Name */}
-        <div className="flex justify-end"></div>
-        <div className="flex gap-2">
+        <div className="flex justify-end mt-2"></div>
+        <div className="flex gap-2 mt-2">
           <button
             onClick={async () => {
-              const result = await call('wallet', 'execute_at_address', 0, hex2bytes('0x06fdde03'))
+              const result = await call('wallet', 'execute_at_address', 0, hex2bytes('0x06fdde03'.padEnd(128, '0')))
             }}
             className={utilStyles.buttonPress}
           >
@@ -146,7 +146,7 @@ export default function Interact() {
           </button>
           <button
             onClick={async () => {
-              const result = await call('local', 'execute_at_address', 0, hex2bytes('0x06fdde03'))
+              const result = await call('local', 'execute_at_address', 0, hex2bytes('0x06fdde03'.padEnd(128, '0')))
             }}
             className={utilStyles.buttonPress}
           >
@@ -155,7 +155,7 @@ export default function Interact() {
         </div>
 
         {/* Approve */}
-        <div className="flex justify-end">
+        <div className="flex justify-end mt-2">
           <input
             id="approveSpenderAddress"
             type="text"
@@ -171,7 +171,7 @@ export default function Interact() {
             className="border-3 border-gray-400 rounded-lg h-14 p-4"
           />
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 mt-2">
           <button
             onClick={async () => {
               const calldata =
@@ -179,7 +179,7 @@ export default function Interact() {
                 document.querySelector('#approveSpenderAddress').value.padStart(64, '0') +
                 parseInt(document.querySelector('#approveAmount').value).toString(16).padStart(64, '0')
               console.log('calldata:', calldata)
-              await call('wallet', 'execute_at_address', 1, hex2bytes(calldata))
+              await call('wallet', 'execute_at_address', 0, hex2bytes(calldata))
             }}
             className={utilStyles.buttonPress}
           >
@@ -192,11 +192,57 @@ export default function Interact() {
                 document.querySelector('#approveSpenderAddress').value.padStart(64, '0') +
                 parseInt(document.querySelector('#approveAmount').value).toString(16).padStart(64, '0')
               console.log('calldata:', calldata)
-              await call('local', 'execute_at_address', 1, hex2bytes(calldata))
+              await call('local', 'execute_at_address', 0, hex2bytes(calldata))
             }}
             className={utilStyles.buttonPress}
           >
             Local: approve
+          </button>
+        </div>
+
+        {/* Transfer */}
+        <div className="flex justify-end mt-0">
+          <input
+            id="transferAddress"
+            type="text"
+            placeholder="to"
+            value="d770134156f9ab742fdb4561a684187f733a9586"
+            className="border-3 border-gray-400 rounded-lg h-14 mb-2 mr-2 p-4"
+          />
+          <input
+            id="transferAmount"
+            type="text"
+            placeholder="amount"
+            value="10"
+            className="border-3 border-gray-400 rounded-lg h-14 p-4"
+          />
+        </div>
+        <div className="flex gap-2 mt-0">
+          <button
+            onClick={async () => {
+              const calldata =
+                '40c10f19' +
+                document.querySelector('#transferAddress').value.padStart(64, '0') +
+                parseInt(document.querySelector('#transferAmount').value).toString(16).padStart(64, '0')
+              console.log('calldata:', calldata)
+              await call('wallet', 'execute_at_address', 0, hex2bytes(calldata))
+            }}
+            className={utilStyles.buttonPress}
+          >
+            Wallet: transfer
+          </button>
+          <button
+            onClick={async () => {
+              const calldata =
+                '40c10f19' +
+                document.querySelector('#transferAddress').value.padStart(64, '0') +
+                parseInt(document.querySelector('#transferAmount').value).toString(16).padStart(64, '0')
+              console.log('calldata:', calldata)
+              await call('local', 'execute_at_address', 0, hex2bytes(calldata))
+            }}
+            className={utilStyles.buttonPress}
+          >
+            Local: transfer
           </button>
         </div>
       </div>
