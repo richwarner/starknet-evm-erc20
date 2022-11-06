@@ -138,7 +138,7 @@ export default function Interact() {
         <div className="flex gap-2">
           <button
             onClick={async () => {
-              const result = await call('wallet', 'execute_at_address', 1, hex2bytes('0x06fdde03'))
+              const result = await call('wallet', 'execute_at_address', 0, hex2bytes('0x06fdde03'))
             }}
             className={utilStyles.buttonPress}
           >
@@ -146,12 +146,7 @@ export default function Interact() {
           </button>
           <button
             onClick={async () => {
-              const result = await call(
-                'local',
-                'execute_at_address',
-                '0x7d130cc98b444811cefb3e531c70dd7baa06fb58b28f28b08d2ed393a529b7b',
-                hex2bytes('0x06fdde03')
-              )
+              const result = await call('local', 'execute_at_address', 0, hex2bytes('0x06fdde03'))
             }}
             className={utilStyles.buttonPress}
           >
