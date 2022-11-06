@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
@@ -5,6 +6,9 @@ import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
 import Date from '../components/date'
 import { GetStaticProps } from 'next'
+import { connect, disconnect, getStarknet } from 'get-starknet'
+import kakarotAbi from '../abis/kakarot.json'
+import { Abi, Contract, Signature } from 'starknet'
 
 export default function Home({
   allPostsData
@@ -15,12 +19,65 @@ export default function Home({
     id: string
   }[]
 }) {
+  // const onClick = async () => {
+  //   if (getStarknet().isConnected) {
+  //     disconnect()
+  //   }
+  //   const selected = await getStarknet().enable({ showModal: true })
+  //   // setAccountAddress(selected[0])
+  //   if (getStarknet().isConnected) {
+  //     // contract?.connect(getStarknet().account)
+  //   }
+  // }
+
+  const hex2bytes = (hexString: string) =>
+    hexString.match(/[0-9a-f]{2}/gi)?.map((byte) => parseInt(byte, 16).toString()) || []
+
+  const setAccountRegistry = async () => {
+    const wallet = getStarknet()
+    if (wallet.isConnected) {
+      const contractAddress = '0x007375191ed2f818f66248cba61fc705773c574325817677ba7c55a1e6ca7980'
+      const kakarotContract = new Contract(kakarotAbi.abi as Abi, contractAddress, wallet.account)
+
+      // kakarotContract?.functions['execute'](hex2bytes('60016004600760086009'), hex2bytes('60016004600760086009')).then(
+      //   (response) => console.log(response)
+      // )
+
+      kakarotContract?.functions['set_account_registry'](60016).then((response) => console.log(response))
+
+      // kakarotContract?.functions['execute_at_address'](0, hex2bytes('60016004600760086009')).then((response) =>
+      //   console.log(response)
+      // )
+
+      // console.log(await kakarotContract.set_account_registry(123123123123123))
+    }
+  }
+
   return (
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
+        <button
+          className="border-2"
+          onClick={async () => {
+            try {
+              const wallet = await connect({})
+              if (wallet) {
+                await wallet.enable({ showModal: true })
+                //setIsConnected(!!wallet?.isConnected);
+              }
+            } catch (err) {
+              console.error(err)
+            }
+          }}
+        >
+          Connect Wallet
+        </button>
+        <button className="border-2" onClick={setAccountRegistry}>
+          setAccountRegistry
+        </button>
         <p>[Your Self Introduction]</p>
         <p>
           (This is a sample website - you’ll be building a site like this in{' '}
